@@ -1,0 +1,146 @@
+/* Reset de estilo global */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  /* Garante que o padding e a borda não afetem a largura e altura */
+}
+
+/* Estilização do body */
+body {
+  @apply bg-gray-100 h-screen flex flex-col;
+  /* Define a cor de fundo e altura da tela, além de usar flexbox */
+  font-family: 'Poppins', sans-serif;
+  /* Define a fonte padrão */
+}
+
+/* Centralizar o conteúdo e limitar a largura máxima */
+.app-container {
+  @apply text-center w-full max-w-full p-6 bg-white shadow-lg rounded-lg border border-gray-200 flex-1;
+  /* Flex-1 para ocupar o espaço disponível */
+}
+
+/* Estilo para o footer */
+footer {
+  @apply p-4 bg-gray-200 text-center;
+  /* Mantém o footer no final da página */
+}
+
+/* Título */
+h1 {
+  @apply text-3xl font-bold mb-6 text-gray-800;
+}
+
+/* Estilo para mensagens de erro */
+.error {
+  @apply bg-red-500 text-white p-2 mb-4 rounded-md font-semibold;
+}
+
+/* Área de upload de arquivos */
+.file-uploader {
+  @apply p-12 border-2 border-dashed border-blue-200 rounded-lg bg-gray-50 text-center transition-colors duration-300 w-full;
+}
+
+.file-uploader:hover {
+  @apply bg-blue-50 border-blue-500;
+}
+
+.file-uploader input {
+  display: none;
+  /* Esconde o input */
+}
+
+.file-uploader label {
+  @apply cursor-pointer text-blue-600 font-semibold;
+}
+
+.file-uploader p {
+  @apply text-gray-600 text-lg;
+}
+
+/* Botão de Reset */
+button.reset-button {
+  @apply mt-4 px-4 py-2 bg-gray-300 text-gray-600 border-none rounded-md cursor-not-allowed text-base transition-colors duration-300;
+}
+
+/* Estado habilitado do botão Reset */
+button.reset-button:enabled {
+  @apply bg-blue-600 text-white cursor-pointer;
+}
+
+button.reset-button:enabled:hover {
+  @apply bg-blue-700;
+}
+
+/* Estilo para pré-visualização de imagem */
+.image-preview {
+  @apply mt-5 max-w-full h-auto rounded-lg shadow-md;
+}
+
+/* Estilo para formulário de conversão */
+.converter-form {
+  @apply mt-5 p-4 bg-white rounded-lg w-full;
+  /* Remove a altura para preencher conforme necessário */
+}
+
+.converter-form select,
+.converter-form button {
+  @apply py-2 px-4 rounded-md mt-2 text-base;
+}
+
+.converter-form select {
+  @apply w-4/5 border border-gray-300 bg-gray-50;
+}
+
+.converter-form button {
+  @apply bg-green-500 text-white border-none cursor-pointer transition-colors duration-300 w-1/2;
+}
+
+.converter-form button:hover {
+  @apply bg-green-600;
+}
+
+.converter-form button:disabled {
+  @apply bg-gray-300 cursor-not-allowed;
+}
+
+/* Estilização para botões */
+button {
+  @apply m-2 px-4 py-3 bg-blue-600 text-white border-none rounded-md cursor-pointer transition-colors duration-300 text-lg;
+}
+
+button:hover {
+  @apply bg-blue-700;
+}
+
+button:disabled {
+  @apply bg-gray-300 cursor-not-allowed;
+}
+
+/* Estilo para link de download */
+a.download-link {
+  @apply no-underline text-blue-600 font-bold inline-block mt-5 px-4 py-2 border-2 border-blue-600 rounded-md transition-colors duration-300;
+}
+
+a.download-link:hover {
+  @apply bg-blue-600 text-white;
+}
+
+/* Responsividade para dispositivos menores */
+@media (max-width: 768px) {
+  .app-container {
+    @apply my-4 p-4;
+  }
+
+  button {
+    @apply py-2 px-3 text-sm;
+  }
+
+  a.download-link {
+    @apply py-2 px-3 text-sm;
+  }
+
+  .image-preview {
+    @apply mt-3;
+  }
+}
