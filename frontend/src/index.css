@@ -1,3 +1,62 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* index.css */
+
+/* Reset básico de CSS para remover margens, paddings e outros estilos padrão */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Fundo padrão do body e configuração global de fontes */
+body {
+  background-color: #0d0d0d;
+  /* Fundo preto */
+  font-family: 'Poppins', sans-serif;
+  /* Fonte moderna */
+  color: #e0e0e0;
+  /* Cor do texto para contraste */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Configuração básica para links (sem sublinhado por padrão) */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Links com efeito de sublinhado em hover */
+a:hover {
+  text-decoration: underline;
+}
+
+/* Adiciona suavidade a transições de estilo apenas para botões e links */
+button,
+a {
+  transition: all 0.3s ease-in-out;
+}
+
+/* Estilo para remover bullets e padding de listas */
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+/* Ajusta o estilo básico para imagens (não ultrapassam o container) */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Define altura mínima para a página ocupar toda a tela */
+html,
+body {
+  height: 100%;
+}
+
+/* Ajuste para garantir que o conteúdo sempre ocupe a altura completa */
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}

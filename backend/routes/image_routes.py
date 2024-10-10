@@ -8,19 +8,29 @@ image_blueprint = Blueprint('image_blueprint', __name__)
 
 @image_blueprint.route('/convert/image', methods=['POST'])
 def convert_image_route():
-    # Verificar se o arquivo foi enviado
-    if 'file' not in request.files:
-        return jsonify({"error": "Nenhum arquivo foi enviado"}), 400
-
-    file = request.files['file']
-    output_format = request.form.get('format').lower()
-
-    # Verificar se o formato solicitado é suportado
-    if output_format not in ['jpeg', 'jpg', 'png', 'gif', 'bmp', 'tiff', 'webp', 'ico', 'svg']:
-        return jsonify({"error": "Formato de imagem não suportado"}), 400
-
-    # Converter a imagem de acordo com o formato solicitado
     try:
+        # Verificar se o arquivo foi enviado
+        if 'file' not in request.files:
+            print("Nenhum arquivo foi enviado")
+            return jsonify({"error": "Nenhum arquivo foi enviado"}), 400
+
+        file = request.files['file']
+        output_format = request.form.get('format')
+
+        if not output_format:
+            print("Formato de imagem não foi enviado")
+            return jsonify({"error": "Formato de imagem não foi enviado"}), 400
+
+        output_format = output_format.lower()
+
+        # Verificar se o formato solicitado é suportado
+        if output_format not in ['jpeg', 'jpg', 'png', 'gif', 'bmp', 'tiff', 'webp', 'ico', 'svg']:
+            print(f"Formato de imagem não suportado: {output_format}")
+            return jsonify({"error": "Formato de imagem não suportado"}), 400
+
+        print(f"Recebido arquivo: {file.filename} para conversão em {output_format}")
+
+        # Converter a imagem de acordo com o formato solicitado
         if output_format == 'svg':
             converted_file = convert_image_to_svg(file)
         else:
@@ -28,17 +38,23 @@ def convert_image_route():
         
         # Verificar se a conversão foi bem-sucedida
         if converted_file is None or not os.path.exists(converted_file):
+            print("Erro ao processar o arquivo de imagem")
             return jsonify({"error": "Erro ao processar o arquivo de imagem"}), 500
+
+        print(f"Arquivo convertido salvo em: {converted_file}")
 
         # Enviar o arquivo convertido
         abs_path = os.path.abspath(converted_file)
         response = send_file(abs_path, as_attachment=True, download_name=f"arquivo_convertido.{output_format}")
+        print(f"Arquivo enviado com sucesso: {abs_path}")
         
         # Limpar arquivos temporários após a resposta
         cleanup_session_files()
+        print("Arquivos temporários limpos")
+        
         return response
     
     except Exception as e:
         # Logar o erro para ajudar no rastreamento
-        print(f"Erro ao enviar o arquivo convertido: {e}")
+        print(f"Erro ao processar a requisição: {str(e)}")
         return jsonify({"error": "Erro ao enviar o arquivo convertido"}), 500

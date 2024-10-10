@@ -1,146 +1,216 @@
-/* Reset de estilo global */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  /* Garante que o padding e a borda não afetem a largura e altura */
-}
-
-/* Estilização do body */
+/* Cor de fundo cinza escuro */
 body {
-  @apply bg-gray-100 h-screen flex flex-col;
-  /* Define a cor de fundo e altura da tela, além de usar flexbox */
+  background-color: #2c2a2a;
   font-family: 'Poppins', sans-serif;
-  /* Define a fonte padrão */
+  color: #e0e0e0;
 }
 
-/* Centralizar o conteúdo e limitar a largura máxima */
+/* Container principal */
 .app-container {
-  @apply text-center w-full max-w-full p-6 bg-white shadow-lg rounded-lg border border-gray-200 flex-1;
-  /* Flex-1 para ocupar o espaço disponível */
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  text-align: center;
 }
 
-/* Estilo para o footer */
-footer {
-  @apply p-4 bg-gray-200 text-center;
-  /* Mantém o footer no final da página */
+/* Ajuste no estilo neon para o título */
+.header-container h1 {
+  font-size: 3rem;
+  color: #ffffff;
+  text-shadow: 0 0 8px #c77dff, 0 0 20px #c77dff, 0 0 30px #a855f7;
+  margin-bottom: 30px;
+  letter-spacing: 2px;
+  animation: neon-glow 2s ease-in-out infinite alternate;
 }
 
-/* Título */
-h1 {
-  @apply text-3xl font-bold mb-6 text-gray-800;
+@keyframes neon-glow {
+  0% {
+    text-shadow: 0 0 8px #c77dff, 0 0 20px #c77dff, 0 0 30px #a855f7;
+  }
+
+  100% {
+    text-shadow: 0 0 12px #c77dff, 0 0 30px #c77dff, 0 0 50px #a855f7;
+  }
 }
 
-/* Estilo para mensagens de erro */
-.error {
-  @apply bg-red-500 text-white p-2 mb-4 rounded-md font-semibold;
-}
-
-/* Área de upload de arquivos */
-.file-uploader {
-  @apply p-12 border-2 border-dashed border-blue-200 rounded-lg bg-gray-50 text-center transition-colors duration-300 w-full;
-}
-
-.file-uploader:hover {
-  @apply bg-blue-50 border-blue-500;
-}
-
-.file-uploader input {
+/* Estilização do input de escolha de arquivos */
+input[type="file"] {
   display: none;
-  /* Esconde o input */
 }
 
-.file-uploader label {
-  @apply cursor-pointer text-blue-600 font-semibold;
+/* Estilo para o label que atua como botão de escolha de arquivo */
+.custom-file-upload {
+  display: inline-block;
+  padding: 14px 28px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #fff;
+  background-color: #a855f7;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 0 8px #a855f7, 0 0 15px #c77dff;
+  transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  margin-right: 20px;
+  margin-bottom: 10px;
 }
 
-.file-uploader p {
-  @apply text-gray-600 text-lg;
+/* Ajusta o container de upload */
+.upload-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin-top: 40px;
 }
 
-/* Botão de Reset */
-button.reset-button {
-  @apply mt-4 px-4 py-2 bg-gray-300 text-gray-600 border-none rounded-md cursor-not-allowed text-base transition-colors duration-300;
+/* Exibindo o nome do arquivo */
+#file-chosen {
+  font-size: 1.3rem;
+  color: #c77dff;
+  margin-top: 20px;
+  text-align: center;
 }
 
-/* Estado habilitado do botão Reset */
-button.reset-button:enabled {
-  @apply bg-blue-600 text-white cursor-pointer;
+/* Ajusta o texto de feedback quando o arquivo for selecionado */
+#file-chosen::before {
+  content: 'Arquivo: ';
+  font-weight: bold;
+  color: #fff;
 }
 
-button.reset-button:enabled:hover {
-  @apply bg-blue-700;
+/* Oculta o texto "Nenhum arquivo escolhido" quando um arquivo é carregado */
+#file-chosen:empty {
+  display: none;
 }
 
-/* Estilo para pré-visualização de imagem */
-.image-preview {
-  @apply mt-5 max-w-full h-auto rounded-lg shadow-md;
+/* Estilo da lista de arquivos suportados */
+.file-info {
+  margin-top: 20px;
+  text-align: center;
 }
 
-/* Estilo para formulário de conversão */
-.converter-form {
-  @apply mt-5 p-4 bg-white rounded-lg w-full;
-  /* Remove a altura para preencher conforme necessário */
+.file-info p {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #ffffff;
+  margin-bottom: 10px;
 }
 
-.converter-form select,
-.converter-form button {
-  @apply py-2 px-4 rounded-md mt-2 text-base;
+.file-info ul {
+  list-style-type: none;
+  padding: 0;
 }
 
-.converter-form select {
-  @apply w-4/5 border border-gray-300 bg-gray-50;
+.file-info li {
+  margin: 5px 0;
+  font-size: 1.1rem;
+  color: #c77dff;
 }
 
-.converter-form button {
-  @apply bg-green-500 text-white border-none cursor-pointer transition-colors duration-300 w-1/2;
+/* Texto de feedback dinâmico */
+.feedback-text {
+  font-size: 1.1rem;
+  color: #a5a5a5;
+  margin-top: 10px;
+  margin-bottom: 20px;
 }
 
-.converter-form button:hover {
-  @apply bg-green-600;
-}
-
-.converter-form button:disabled {
-  @apply bg-gray-300 cursor-not-allowed;
-}
-
-/* Estilização para botões */
+/* Estilo neon para os botões */
 button {
-  @apply m-2 px-4 py-3 bg-blue-600 text-white border-none rounded-md cursor-pointer transition-colors duration-300 text-lg;
+  padding: 14px 28px;
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #fff;
+  background-color: #a855f7;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 0 8px #a855f7, 0 0 15px #c77dff;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  margin-right: 15px;
+  margin-bottom: 30px;
+  width: 250px;
+}
+
+button:last-child {
+  margin-right: 0;
+  margin-bottom: 30px;
 }
 
 button:hover {
-  @apply bg-blue-700;
+  background-color: #c77dff;
+  box-shadow: 0 0 12px #a855f7, 0 0 25px #c77dff;
 }
 
-button:disabled {
-  @apply bg-gray-300 cursor-not-allowed;
+/* Barra de progresso estilizada */
+.progress-bar {
+  margin-top: 30px;
+  width: 100%;
+  max-width: 400px;
+  background-color: #444;
+  border-radius: 10px;
 }
 
-/* Estilo para link de download */
+.progress-bar-inner {
+  height: 20px;
+  background-color: #a855f7;
+  border-radius: 10px;
+  transition: width 0.3s ease-in-out;
+  box-shadow: 0 0 8px #a855f7, 0 0 15px #c77dff;
+}
+
+/* Pré-visualização de imagens */
+.image-preview {
+  margin-top: 40px;
+  max-width: 100%;
+  max-height: 300px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px #a855f7;
+  margin-bottom: 30px;
+}
+
+/* Estilo neon para o link de download */
 a.download-link {
-  @apply no-underline text-blue-600 font-bold inline-block mt-5 px-4 py-2 border-2 border-blue-600 rounded-md transition-colors duration-300;
+  display: inline-block;
+  padding: 14px 28px;
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #fff;
+  background-color: #a855f7;
+  border-radius: 8px;
+  box-shadow: 0 0 8px #a855f7, 0 0 15px #c77dff;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  margin-bottom: 30px;
 }
 
 a.download-link:hover {
-  @apply bg-blue-600 text-white;
+  background-color: #c77dff;
+  box-shadow: 0 0 12px #a855f7, 0 0 25px #c77dff;
 }
 
-/* Responsividade para dispositivos menores */
-@media (max-width: 768px) {
-  .app-container {
-    @apply my-4 p-4;
-  }
+/* Footer com estilo neon */
+footer {
+  width: 100%;
+  text-align: center;
+  background-color: #2d2d2d;
+  color: #c77dff;
+  padding: 20px 0;
+  box-shadow: 0 0 10px #c77dff, 0 0 30px #a855f7;
+  font-size: 1rem;
+  letter-spacing: 1px;
+  margin-top: 40px;
+}
 
-  button {
-    @apply py-2 px-3 text-sm;
-  }
-
-  a.download-link {
-    @apply py-2 px-3 text-sm;
-  }
-
-  .image-preview {
-    @apply mt-3;
-  }
+footer p {
+  margin: 0;
+  text-shadow: 0 0 5px #c77dff, 0 0 15px #a855f7;
 }
