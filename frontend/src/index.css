@@ -52,6 +52,8 @@ img {
 html,
 body {
   height: 100%;
+  width: 100%;
+  /* Garantir que use toda a largura da tela */
 }
 
 /* Ajuste para garantir que o conteúdo sempre ocupe a altura completa */
@@ -59,4 +61,14 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+}
+
+/* Garantir que o container flex use toda a largura */
+.progress-bar {
+  width: 90%;
+  /* Controlar a largura máxima da barra de progresso */
+  max-width: 1000px;
+  /* Aumentar o limite */
+  margin: 0 auto;
+  /* Centralizar a barra */
 }

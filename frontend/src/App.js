@@ -38,6 +38,19 @@ const App = () => {
     setError('');
   };
 
+  const simulateProgress = (target) => {
+    let currentProgress = progress;
+    const interval = setInterval(() => {
+      currentProgress += 5; // Incrementa de 5% a cada ciclo
+      if (currentProgress >= target) {
+        clearInterval(interval);
+        setProgress(target);
+      } else {
+        setProgress(currentProgress);
+      }
+    }, 100); // A cada 100ms atualiza o progresso
+  };
+
   const handleConversion = (format) => {
     if (!file) {
       setError('Por favor, envie um arquivo primeiro.');
@@ -45,7 +58,7 @@ const App = () => {
     }
 
     setIsProcessing(true);
-    setProgress(20);
+    setProgress(0);
 
     const formData = new FormData();
     formData.append('file', file);
@@ -60,6 +73,9 @@ const App = () => {
       apiEndpoint = `${apiURL}/convert/docx_to_pdf`;
     }
 
+    // Simula progresso inicial
+    simulateProgress(50);
+
     fetch(apiEndpoint, {
       method: 'POST',
       body: formData,
@@ -68,13 +84,15 @@ const App = () => {
         if (!response.ok) {
           throw new Error('Erro ao processar o arquivo');
         }
-        setProgress(70);
+        // Simula progresso de 70% quando a resposta começa a ser recebida
+        simulateProgress(70);
         return response.blob();
       })
       .then((blob) => {
         const downloadUrl = window.URL.createObjectURL(blob);
         setConvertedFile(downloadUrl);
-        setProgress(100);
+        // Simula o final do progresso
+        simulateProgress(100);
         setIsProcessing(false);
       })
       .catch((err) => {
