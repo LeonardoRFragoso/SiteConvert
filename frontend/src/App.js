@@ -12,6 +12,7 @@ const App = () => {
   const [progress, setProgress] = useState(0);
   const [error, setError] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
+  const [downloadFormat, setDownloadFormat] = useState(''); // Armazena o formato do download
 
   // URL da API hardcoded
   const apiURL = 'http://192.168.0.4:5000';
@@ -59,6 +60,7 @@ const App = () => {
 
     setIsProcessing(true);
     setProgress(0);
+    setDownloadFormat(format); // Armazena o formato desejado para download
 
     const formData = new FormData();
     formData.append('file', file);
@@ -110,6 +112,7 @@ const App = () => {
     setProgress(0);
     setError('');
     setIsProcessing(false);
+    setDownloadFormat(''); // Reset do formato de download
   };
 
   return (
@@ -135,7 +138,7 @@ const App = () => {
             </p>
             <ul className="text-white">
               <li>Imagens: JPG, PNG, SVG, BMP, TIFF</li>
-              <li>Áudio: MP3, WAV, OGG, FLAC, AAC, WMA, M4A</li>
+              <li>Áudio: MP3, WAV, OGG, FLAC, M4A</li>
               <li>Documentos: PDF, DOCX</li>
             </ul>
           </div>
@@ -152,7 +155,7 @@ const App = () => {
           )}
 
           {file && fileType === 'audio' && (
-            <p className="text-white mt-2">Você pode converter áudio para MP3, WAV, OGG, FLAC, AAC, WMA, ou M4A.</p>
+            <p className="text-white mt-2">Você pode converter áudio para MP3, WAV, OGG, FLAC ou M4A.</p>
           )}
 
           {file && fileType === 'application' && file.name.endsWith('.pdf') && (
@@ -183,8 +186,6 @@ const App = () => {
                 <Button onClick={() => handleConversion('wav')} className="ml-4">Converter para WAV</Button>
                 <Button onClick={() => handleConversion('ogg')} className="ml-4">Converter para OGG</Button>
                 <Button onClick={() => handleConversion('flac')} className="ml-4">Converter para FLAC</Button>
-                <Button onClick={() => handleConversion('aac')} className="ml-4">Converter para AAC</Button>
-                <Button onClick={() => handleConversion('wma')} className="ml-4">Converter para WMA</Button>
                 <Button onClick={() => handleConversion('m4a')} className="ml-4">Converter para M4A</Button>
               </>
             )}
@@ -206,19 +207,25 @@ const App = () => {
           </div>
         )}
 
-        {/* Link para download do arquivo convertido */}
+        {/* Download do arquivo convertido */}
         {convertedFile && (
           <div className="mt-6 text-center">
-            <a href={convertedFile} download="arquivo_convertido" className="download-link">
+            <a 
+              href={convertedFile} 
+              download={`${file.name.split('.').slice(0, -1).join('.')}.${downloadFormat}`} // Usa o nome original com a nova extensão
+              className="download-link"
+            >
               Baixar Arquivo Convertido
             </a>
           </div>
         )}
 
-        {/* Footer simples */}
-        <footer className="bg-gray-800 text-white text-center p-4 mt-10">
-          <p>© 2024 Meu Conversor de Arquivos</p>
-        </footer>
+        {/* Botão de reset */}
+        <div className="mt-6">
+          <Button onClick={reset} className="bg-red-500">
+            Resetar
+          </Button>
+        </div>
       </div>
     </ThemeProvider>
   );
